@@ -12,13 +12,15 @@ import { useContext } from "react";
 import { usercontext } from "../App";
 
 export const DeleteCommentModal = () => {
-  const { deleteCommentId, setDeleteCommentId } = useContext(usercontext);
+  const { deleteCommentId, setDeleteCommentId, commentsDispatch } =
+    useContext(usercontext);
 
   const cancel = () => {
-    setDeleteCommentId(-1);
+    setDeleteCommentId(undefined);
   };
+
   return (
-    <Backdrop open={deleteCommentId != -1} onClick={cancel}>
+    <Backdrop open={deleteCommentId != undefined} onClick={cancel}>
       <Card sx={{ maxWidth: 400, p: 2, borderRadius: 2 }}>
         <CardHeader
           title={<Typography variant="h6">Delete comment</Typography>}
@@ -44,6 +46,14 @@ export const DeleteCommentModal = () => {
               disableElevation
               color="error"
               sx={{ flexGrow: 1 }}
+              onClick={(e) => {
+                e.stopPropagation();
+                commentsDispatch({
+                  type: "REMOVE",
+                  payload: { item: deleteCommentId },
+                });
+                cancel();
+              }}
             >
               Delete
             </Button>

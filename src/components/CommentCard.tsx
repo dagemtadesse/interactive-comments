@@ -29,7 +29,7 @@ export interface CommentModel {
   createdAt: string;
   user: User;
   score: number;
-  replies?: CommentModel[];
+  replies?: number[];
 }
 
 export const CommentCard = (
@@ -81,9 +81,9 @@ export const CommentCard = (
       <Stack
         direction={{ xs: "column-reverse", lg: "row" }}
         gap={3}
-        alignItems={{xs: 'none', lg: "start"}}
+        alignItems={{ xs: "none", lg: "start" }}
       >
-        <Stack direction='row' justifyContent="space-between">
+        <Stack direction="row" justifyContent="space-between">
           <Stack
             sx={{
               bgcolor: "background.default",
